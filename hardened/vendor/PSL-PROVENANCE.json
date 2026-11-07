@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/publicsuffix/list",
+  "commit": "94ec5df7273926560d91e77c002000ba1a53fec4",
+  "license": "MPL-2.0",
+  "sections": [
+    "ICANN",
+    "PRIVATE"
+  ],
+  "retrieved": "2026-11-06",
+  "sha256": {
+    "public_suffix_list.dat": "762b6cbdd2dacc597b398fcd7860e2184b684125a58aa177dbdf54916a1f3430",
+    "public-suffix-rules.js": "656b8584b609541338ece0726a39df355b30b0fee88feb40e04da3218a6cacf3",
+    "PSL-LICENSE": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+  }
+}

@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Strongbox Login synthetic test</title>
+<style>body{font:17px system-ui;max-width:650px;margin:50px auto}label{display:block;margin:16px 0}input{display:block;width:320px;padding:9px;font:inherit}output{display:block;padding:15px;background:#e7eef7;color:#14233c;white-space:pre-line}button{padding:10px}</style>
+<h1>Strongbox Login synthetic test</h1><p>This page uses fake credentials only. No Strongbox database is involved.</p>
+<form id="login"><label>Username<input name="username" autocomplete="username"></label><label>Password<input name="password" type="password" autocomplete="current-password"></label><button type="submit">Test submit guard</button></form>
+<output id="result">Waiting for an explicit fill.
+Form submitted: no
+Page-visible extension messages: 0</output>
+<script>
+if (location.search === '?email') document.querySelector('input[type=password]').parentElement.remove();
+let submitted=false,messages=0;
+function check(){const f=document.querySelector('form');const correct=f.username.value==='synthetic@example.invalid'&&(!f.password || f.password.value==='SYNTHETIC-TEST-PASSWORD');document.querySelector('output').textContent=`Synthetic fields correct: ${correct?'yes':'no'}\nForm submitted: ${submitted?'yes':'no'}\nPage-visible extension messages: ${messages}`;}
+document.querySelector('form').addEventListener('submit',e=>{e.preventDefault();submitted=true;check();});
+document.addEventListener('input',check);document.addEventListener('change',check);
+window.addEventListener('message',()=>{messages++;check();});
+</script></html>

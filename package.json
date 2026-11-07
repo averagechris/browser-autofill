@@ -1,75 +1,15 @@
 {
-  "name": "strongbox-af-ext",
-  "version": "1.2.3",
-  "description": "Strongbox Browser AutoFill Extension",
-  "main": "index.js",
-  "scripts": {
-    "dev:chrome": "NODE_ENV=development TARGET_BROWSER=chrome webpack --watch",
-    "dev:firefox": "NODE_ENV=development TARGET_BROWSER=firefox webpack --watch",
-    "build:chrome": "NODE_ENV=production TARGET_BROWSER=chrome webpack",
-    "build:firefox": "NODE_ENV=production TARGET_BROWSER=firefox webpack",
-    "lint": "eslint . --ext .ts",
-    "prettier": "prettier --write './**/*.{js,ts,tsx,html}'",
-    "zip": "node release-zip-files.js",
-    "release": "node release-update-version.js"
-  },
-  "author": "Mark McGuill",
+  "name": "strongbox-login",
+  "version": "0.2.1",
+  "private": true,
+  "type": "module",
+  "description": "Reviewed, click-only Strongbox browser integration",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@types/lodash.debounce": "^4.0.7",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@types/webextension-polyfill": "^0.9.0",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "archiver": "^5.3.1",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.1",
-    "eslint": "^8.34.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "prettier": "^3.0.1",
-    "ts-loader": "^9.3.1",
-    "typescript": "^4.9.5",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.0"
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "build": "python3 tools/build_hardened.py --out dist/production"
   },
-  "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@fontsource/roboto": "^4.5.8",
-    "@mui/icons-material": "^5.10.3",
-    "@mui/material": "^5.10.3",
-    "i18next": "^23.5.1",
-    "lodash.debounce": "^4.0.8",
-    "otpauth": "^8.0.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^13.2.2",
-    "react-markdown": "^9.0.0",
-    "react-syntax-highlighter": "^15.5.0",
-    "react-virtuoso": "^4.5.1",
-    "remark-gfm": "^4.0.0",
-    "strip-comments": "^2.0.1",
-    "tweetnacl": "^1.0.3",
-    "webextension-polyfill": "^0.10.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended"
-    ]
+  "engines": {
+    "node": ">=24"
   }
 }
