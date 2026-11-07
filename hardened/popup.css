@@ -1,0 +1,54 @@
+:root {
+  color-scheme: light dark;
+  font: 14px/1.45 system-ui, sans-serif;
+  --surface: #fff;
+  --text: #141c2a;
+  --muted: #42526a;
+  --line: #8291a5;
+  --row: #f1f5fa;
+  --hover: #e0ebfc;
+  --accent: #164fa7;
+  --on-accent: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #141b26;
+    --text: #f4f7ff;
+    --muted: #c0cde0;
+    --line: #7588a4;
+    --row: #222f42;
+    --hover: #304664;
+    --accent: #9cc5ff;
+    --on-accent: #0d2039;
+  }
+}
+body { margin: 0; width: 390px; background: var(--surface); color: var(--text); }
+header { padding: 14px 16px 12px; border-bottom: 1px solid var(--line); }
+main { padding: 12px 16px 16px; }
+h1, h2, p { margin: 0; }
+h1 { font-size: 19px; }
+h2 { font-size: 14px; margin-bottom: 8px; }
+#site, #status, #search-status, small { color: var(--muted); overflow-wrap: anywhere; }
+#site, small { font-size: 12px; }
+#status, #search-status { margin-bottom: 10px; }
+p:empty { display: none; }
+ul { list-style: none; padding: 3px; margin: 0 -3px 10px; max-height: 230px; overflow-y: auto; }
+li + li { margin-top: 6px; }
+button, input, summary { font: inherit; }
+button, input { border: 1px solid var(--line); border-radius: 7px; padding: 8px 10px; }
+button { background: var(--row); color: var(--text); cursor: pointer; }
+button:hover:not(:disabled) { background: var(--hover); }
+button:disabled { cursor: default; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+li button { width: 100%; text-align: left; display: grid; gap: 2px; overflow-wrap: anywhere; }
+li strong { font-weight: 650; }
+details, #confirmation { border-top: 1px solid var(--line); padding-top: 10px; }
+summary { cursor: pointer; color: var(--accent); font-weight: 650; }
+form { margin: 10px 0; }
+label { display: block; margin-bottom: 4px; }
+.search-row { display: flex; gap: 8px; }
+input { min-width: 0; flex: 1; background: var(--surface); color: var(--text); }
+button[type=submit], #confirm { background: var(--accent); color: var(--on-accent); }
+button[type=submit]:hover:not(:disabled), #confirm:hover:not(:disabled) { background: var(--accent); filter: brightness(.9); }
+#destination { margin-bottom: 10px; overflow-wrap: anywhere; }
+#retry { margin-bottom: 10px; }

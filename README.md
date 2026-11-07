@@ -1,73 +1,45 @@
-# Strongbox Browser AutoFill Extension
-Strongbox Browser AutoFill Extension official distributions can be found on the relevant browser stores here:
+# Strongbox Login
 
-- Chrome/Chromium: https://chrome.google.com/webstore/detail/strongbox-autofill/mnilpkfepdibngheginihjpknnopchbn
-- Firefox: https://addons.mozilla.org/firefox/addon/strongbox-autofill/
+A small, click-only browser integration for Strongbox. This is a security-focused fork of `strongbox-password-safe/browser-autofill`; the original README is preserved in `README.upstream.md` and the upstream license remains in `LICENSE.md`.
 
-# Localization - Help Wanted
-If you would like to see Strongbox translated into your language just get in touch (support@strongboxsafe.com) and we'll get you access to our localization platform. Localization and translation is managed through the parallel Babel project. This is managed under the MIT licence to avoid issues with the Apple's App Store and ownership:
+## Behavior
 
-https://github.com/strongbox-password-safe/babel
+Open the toolbar popup on an HTTPS login page to see matching accounts. Choose an account to fill the visible top-level form. On an email-first step, it fills the username field. Open **Search other accounts** to find entries by title or abbreviation. If the saved site differs, confirm the displayed destination before filling. It does not invoke form submission. A site's own input handlers may react to a fill.
 
-Big thank you to all the localization contributors
+There is no automatic fill, page-load credential lookup, persistent content script, inline iframe UI, generic page-message bridge, clipboard access, record editing or password generation. Only the active tab is accessible after using the extension. Credentials expire after 45 seconds, are single-use, and cannot be used after navigation or a detected database lock.
 
-- Chinese - GY & Attis & Anonymous
-- Czech - S474N
-- Dutch - Wishes to remain anonymous
-- French - Charles-Ivan Chesneau
-- German - @Slummi
-- Greek - John Spiropoulos
-- Italian - Marco Ermini
-- Japanese - Anonymous
-- Norwegian - Ole Aldric
-- Polish - Łukasz Oryński
-- Portuguese (PT-BR) - Wolfgang Marcos
-- Russian - Wishes to remain anonymous
-- Spanish - Wishes to remain anonymous
-- Swedish - Jari Häkkinen
-- Turkish - evreka
-- Ukrainian - Artem Polivanchuk
+The primary stored HTTPS URL matches the same origin or a child hostname on the same port. For example, `https://google.com` matches `https://accounts.google.com`. Saved subdomains do not match siblings or parents. A pinned Public Suffix List including private hosting boundaries blocks public suffixes such as `co.uk` and shared hosting suffixes such as `github.io` from authorizing child sites. Scheme-less and alternative KeePass URL fields are not supported yet. HTTP and subframe logins fail closed. At most 24 native results are considered, so this first version can omit a match beyond that page. Compatibility can be expanded with explicit policy and tests.
 
-# License Notes (AGPL)
-This code provided here is licensed under the GNU AGPL by default, except for localization which is managed under the MIT Licence in the Babel sub project. Copyright/Ownership is held by Mark McGuill.
+## Security limits
 
-# Supporting Development
-There are several ways you can help support continuous development. 
+Read `hardened/SECURITY.md`. The native app and signed helper remain trusted components. This fork validates its own requests and responses; it cannot repair the native app's behavior for another client. Native-side issues identified in the audit are not claimed fixed here. No production vault is an automated-test fixture.
 
-### App Store Purchase
-Obviously if you purchase a subscription or lifetime licence Apple's App Stores that's really helpful. 
+## Test and build
 
-### Leave a Review
-If you like the app, you can always help out by leaving a *5 star review* in the App Store(s) (Apple, Mozilla or Google's stores). This is very helpful, and helps get the word out about Strongbox. If you can, please leave a positive comment too. You can review the App on Apple here:
+Use Node 24+ and Python 3. No npm dependency installation or dependency lifecycle scripts are needed. TweetNaCl 1.0.3 is vendored with its license and provenance, including matching npm integrity and upstream Git source.
 
-Apple App Store: https://apps.apple.com/app/strongbox-password-safe/id897283731
-Chrome/Chromium: https://chrome.google.com/webstore/detail/strongbox-autofill/mnilpkfepdibngheginihjpknnopchbn
-Firefox: https://addons.mozilla.org/firefox/addon/strongbox-autofill/
+```sh
+node --test tests/*.test.mjs
+python3 tools/build_hardened.py --out dist/production
+python3 tools/build_hardened.py --fixture --out dist/synthetic
+```
 
-# Help / Tech Support
-If you're having trouble, please checkout the following sources:
+The builder refuses an existing output directory. Repeat builds to fresh directories and compare their contents. `SHA256SUMS.json` records every packaged file. The synthetic build has a separate identity and native host, and permits exact loopback HTTP only. It must never be registered with the real helper.
 
-- [Online Support](https://strongboxsafe.com/support/) 
-- [Twitter @StrongboxSafe](https://twitter.com/StrongboxSafe "@StrongboxSafe") 
-- [Reddit r/strongbox](https://www.reddit.com/r/strongbox/ "r/strongbox")
+## Helium registration and installation
 
-Another important step is to restart your device, it's surprising how often this can fix issues.
+Use a reviewed, versioned release directory, not a development directory. Enable Developer mode in Helium's Extensions page and load the reviewed release as an unpacked extension. This gives the local files update authority; protect that directory and review each replacement.
 
-# Build Issues
-The code is provided here in the spirit transparency, security and openness. Anyone can view the code and verify that everything is above board, the algorithms are correct and there are no backdoors or other malicious features present. Please do not file issues about build trouble or problems, they will be closed as "won't fix". What is here is all of the functional code used in building Strongbox Browser AutoFill, other non functional files (e.g. artwork, images, auxilliary and build configs) are not present. Translation strings files are managed in the separate Babel repository. 
+```sh
+python3 tools/register_native_host.py --extension /path/to/reviewed/release
+```
 
-# Open Source not Open Contribution
-At the moment, we are not accepting pull requests and do not want to manage contributions from others. The code here is under the AGPL which Apple will not allow in the App Store. The code is provided here in the spirit of transparency, security and openness.
+Strongbox must be running with its Chrome/Firefox browser-extension service enabled. A refused native connection means that service is unavailable; installing a manifest alone does not start it.
 
-# Acknowledgements
-Kudos to Rony Shapiro, Bruce Schneier and all the Password Safe team for their amazing work and the original Password Safe format and application.
+Registration uses Helium's standard user-level `NativeMessagingHosts` directory, verifies the installed Strongbox helper's signature/team and root ownership, and allows only this fork's derived extension ID. It refuses to overwrite a different existing registration. Strongbox's own manifest installer does not currently enumerate Helium, so this local registration must be maintained when the app path or extension identity changes.
 
-The official KeePass site is here:
+To roll back, disable Strongbox Login in Helium and remove only the registration written for this fork after verifying its contents. Do not re-enable an unreviewed release or modify any vault to roll back a browser integration.
 
-https://keepass.info/
+## Source history
 
-Credit to Dominik Reichl and all the KeePass team for their incredible technical skill, for coming up with a great format, and their seminal KeePass app. 
-
-Hats off to the KeePassXC team for their fantastic cross platform apps. 
-
-https://keepassxc.org/
+The public upstream 1.2.3 snapshot had malformed manifests/lockfile and did not reproduce store 1.2.5. `src/` preserves that historical source for comparison. The new shipped path is only `hardened/` plus the deterministic packaging tools; it does not build or load the historical `src/` tree.

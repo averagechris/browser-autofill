@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Strongbox Login</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Strongbox Login</h1>
+    <p id="site"></p>
+  </header>
+  <main>
+    <p id="status" role="status">Loading matching accounts…</p>
+    <button id="retry" type="button" hidden>Refresh accounts</button>
+    <section aria-labelledby="matches-heading">
+      <h2 id="matches-heading">Matching accounts</h2>
+      <ul id="matches" aria-labelledby="matches-heading"></ul>
+    </section>
+    <details id="finder">
+      <summary>Search other accounts</summary>
+      <form id="search">
+        <label for="query">Account name</label>
+        <div class="search-row">
+          <input id="query" type="search" minlength="2" maxlength="128" autocomplete="off" required>
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      <p id="search-status" role="status"></p>
+      <ul id="results" aria-label="Search results"></ul>
+    </details>
+    <section id="confirmation" hidden aria-labelledby="confirm-heading">
+      <h2 id="confirm-heading">Confirm destination</h2>
+      <p id="destination"></p>
+      <div class="search-row">
+        <button id="confirm" type="button">Fill on this site</button>
+        <button id="cancel" type="button">Cancel</button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

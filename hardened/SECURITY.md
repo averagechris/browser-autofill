@@ -1,0 +1,11 @@
+# Strongbox Login security boundary
+
+This fork has no automatic fill, persistent content scripts, iframe UI, page-message listener, clipboard integration, record creation, unlock command, or extension update URL. Opening the popup loads site matches. Name search requires opening the finder and submitting a query. The native API returns credential records, so the worker filters them before returning display metadata and one-use tokens. Abbreviation fallback reads at most 96 candidates. Selecting a search result outside its saved site requires confirming the current origin. On account selection, the background uses the browser-supplied destination and sends only the selected username/password to one document after revalidation. It does not call form submission methods or click Submit; site scripts may react to input/change events.
+
+Production accepts HTTPS only. Stored URLs authorize their exact origin and HTTPS child hostnames on the same port, bounded by a pinned Public Suffix List including PRIVATE hosting rules. Subdomains do not authorize sibling or parent hosts. The PSL snapshot must be reviewed and refreshed with releases; new hosting boundaries can emerge between snapshots. A separately identified synthetic test build accepts exact loopback HTTP origins and uses a different, synthetic native host. Never register the test build with the real Strongbox helper.
+
+The native adapter validates sizes, Base64 and decoded fields, sends fixed nonnegative pagination, uses the existing NaCl protocol, and rejects an unexpected server-key change within a session. Learning a key from the endpoint is not proof of Strongbox identity. The signed helper and registration remain trust assumptions.
+
+The reviewed native app source has unresolved local-client authorization, parsing and availability issues. This extension cannot fix the app's handling of another client's messages or authorize a raw local socket on its behalf. It does not establish protection against arbitrary same-user malware. No production vault is used for automated tests.
+
+Review code and test results before installation. Loading an unpacked extension shifts update trust to the local source/build directory. Do not point Helium at a writable staging build or retain the vendor's extension identity/update channel.

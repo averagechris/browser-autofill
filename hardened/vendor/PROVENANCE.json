@@ -1,0 +1,9 @@
+{
+  "version": "1.0.3",
+  "tarball": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-1.0.3.tgz",
+  "integrity": "sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==",
+  "githubSource": "https://raw.githubusercontent.com/dchest/tweetnacl-js/5bf1ff5fa15e89ae249401b0d5aa54c5c5955041/nacl-fast.js",
+  "gitCommit": "5bf1ff5fa15e89ae249401b0d5aa54c5c5955041",
+  "sourceSHA256": "6bcd37a3b20dce913f82d4b23e4e2b661058b4b953df8a3f8c45d56ac4f72447",
+  "githubBytesMatch": true
+}
